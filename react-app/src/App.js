@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import {useState, useEffect} from "react";
+import {useReducer} from "react"
+// import {useState, useEffect} from "react";
 
 // destructure an array
 // assign variable name based on position in array
@@ -15,30 +16,37 @@ import {useState, useEffect} from "react";
 //instead of passing props, destructure the array to give just the value you want
 function App() {
   // set state value will be initial one when loaded
-  const [emotion, setEmotion]= useState("happy");
+  // const [emotion, setEmotion]= useState("happy");
 
-  const [secondaryEmotion, setSecondaryEmotion] = useState("tired")
+  // const [secondaryEmotion, setSecondaryEmotion] = useState("tired")
 
   // useEffect happens alongside render
   // if you want to be called only once, pass in dependency array - , []
   // or pass in array with state value - [emotion] to call function when state updates
-  useEffect(() => {
-    console.log(`It's ${emotion} right now`)
-  }, [emotion])
-  useEffect(() =>{
-    console.log(`It's ${secondaryEmotion} around here`)
-  }, [])
+  // note - can pass two values if only want to see when both values update 
+  // useEffect(() => {
+  //   console.log(`It's ${emotion} right now`)
+  // }, [emotion])
+  // useEffect(() =>{
+  //   console.log(`It's ${secondaryEmotion} around here`)
+  // }, [])
+
+  const [checked, setChecked] = useReducer((checked) => !checked, false)
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h1>
+        {/* <h1>
           Current emotion is {emotion}
         </h1>
         <button onClick={() => setEmotion("sad")}>Sad</button>
         <button onClick={() => setEmotion("excited")}>Excited</button>
         <h2>Current secondary emotion is {secondaryEmotion}</h2>
-        <button onClick={() => setSecondaryEmotion("stressed")}>Stressed</button>
+        <button onClick={() => setSecondaryEmotion("stressed")}>Stressed</button> */}
+      <input type="checkbox" value={checked} 
+      onChange={setChecked}
+      />
+      <label>{checked ? "checked" : "not checked"}</label>
       </header>
     </div>
   );
