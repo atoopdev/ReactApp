@@ -1,6 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
 import {useState} from "react"
+
+// custom hook
+function useInput(initialValue){
+const [value, setValue] = useState(initialValue)
+return [
+  {
+    value,
+    onChange: (e) => setValue(e.target.value)
+  },
+  () => setValue(initialValue)
+]
+}
+
 // import {useRef} from 'react'
 // import {useReducer} from "react"
 // import {useState, useEffect} from "react";
@@ -39,17 +52,21 @@ function App() {
   // const hexColor = useRef()
 
   // controlled form elements use state values
-  const [title, setTitle] = useState("")
-  const [color, setColor] = useState("#000000")
+  // const [title, setTitle] = useState("")
+  // const [color, setColor] = useState("#000000")
+
+  // use custom Hook
+  const [titleProps, resetTitle] = useInput("")
+  const [colorProps, resetColor] = useInput("#000000")
   // upon submit
   const submit = (e) => {
     e.preventDefault()
     // const title = txtTitle.current.value;
     // const color = hexColor.current.value;
-    alert(`${title}, ${color}`)
+    alert(`${titleProps.value}, ${colorProps.value}`)
     // clear form after submit
-    setTitle("")
-    setColor("#000000")
+    resetTitle()
+    resetColor()
     // // after display reset
     // txtTitle.current.value = ""
     // hexColor.current.value = ""
@@ -77,15 +94,9 @@ function App() {
       </form> */}
 
 <form onSubmit={submit}>
-        <input value={title} onChange={
-          (event) =>
-          setTitle(event.target.value)
-        }
+        <input {...titleProps}
         type="text" placeholder="color title..."></input>
-        <input value={color} onChange={
-          (event) =>
-          setColor(event.target.value)
-        }
+        <input {...colorProps}
         type="color"></input>
         <button>Add</button>
       </form>
