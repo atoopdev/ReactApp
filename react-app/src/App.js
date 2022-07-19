@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import {useRef} from 'react'
+import {useState} from "react"
+// import {useRef} from 'react'
 // import {useReducer} from "react"
 // import {useState, useEffect} from "react";
 
@@ -33,19 +34,25 @@ function App() {
   // }, [])
 
   // const [checked, setChecked] = useReducer((checked) => !checked, false)
-  
-  const txtTitle = useRef()
-  const hexColor = useRef()
+  // uncontrolled component
+  // const txtTitle = useRef()
+  // const hexColor = useRef()
 
+  // controlled form elements use state values
+  const [title, setTitle] = useState("")
+  const [color, setColor] = useState("#000000")
   // upon submit
   const submit = (e) => {
     e.preventDefault()
-    const title = txtTitle.current.value;
-    const color = hexColor.current.value;
+    // const title = txtTitle.current.value;
+    // const color = hexColor.current.value;
     alert(`${title}, ${color}`)
-    // after display reset
-    txtTitle.current.value = ""
-    hexColor.current.value = ""
+    // clear form after submit
+    setTitle("")
+    setColor("#000000")
+    // // after display reset
+    // txtTitle.current.value = ""
+    // hexColor.current.value = ""
   }
   
   return (
@@ -63,9 +70,23 @@ function App() {
       onChange={setChecked}
       />
       <label>{checked ? "checked" : "not checked"}</label> */}
-      <form onSubmit={submit}>
+      {/* <form onSubmit={submit}>
         <input ref={txtTitle} type="text" placeholder="color title..."></input>
         <input ref={hexColor} type="color"></input>
+        <button>Add</button>
+      </form> */}
+
+<form onSubmit={submit}>
+        <input value={title} onChange={
+          (event) =>
+          setTitle(event.target.value)
+        }
+        type="text" placeholder="color title..."></input>
+        <input value={color} onChange={
+          (event) =>
+          setColor(event.target.value)
+        }
+        type="color"></input>
         <button>Add</button>
       </form>
       </header>
