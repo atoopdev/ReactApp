@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import {useReducer} from "react"
+import {useRef} from 'react'
+// import {useReducer} from "react"
 // import {useState, useEffect} from "react";
 
 // destructure an array
@@ -31,7 +32,22 @@ function App() {
   //   console.log(`It's ${secondaryEmotion} around here`)
   // }, [])
 
-  const [checked, setChecked] = useReducer((checked) => !checked, false)
+  // const [checked, setChecked] = useReducer((checked) => !checked, false)
+  
+  const txtTitle = useRef()
+  const hexColor = useRef()
+
+  // upon submit
+  const submit = (e) => {
+    e.preventDefault()
+    const title = txtTitle.current.value;
+    const color = hexColor.current.value;
+    alert(`${title}, ${color}`)
+    // after display reset
+    txtTitle.current.value = ""
+    hexColor.current.value = ""
+  }
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -43,10 +59,15 @@ function App() {
         <button onClick={() => setEmotion("excited")}>Excited</button>
         <h2>Current secondary emotion is {secondaryEmotion}</h2>
         <button onClick={() => setSecondaryEmotion("stressed")}>Stressed</button> */}
-      <input type="checkbox" value={checked} 
+      {/* <input type="checkbox" value={checked} 
       onChange={setChecked}
       />
-      <label>{checked ? "checked" : "not checked"}</label>
+      <label>{checked ? "checked" : "not checked"}</label> */}
+      <form onSubmit={submit}>
+        <input ref={txtTitle} type="text" placeholder="color title..."></input>
+        <input ref={hexColor} type="color"></input>
+        <button>Add</button>
+      </form>
       </header>
     </div>
   );
